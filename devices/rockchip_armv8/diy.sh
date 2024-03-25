@@ -18,8 +18,6 @@ git_clone_path master https://github.com/coolsnowwolf/lede target/linux/generic/
 
 rm -rf target/linux/generic/hack-6.1/{410-block-fit-partition-parser.patch,724-net-phy-aquantia*,720-net-phy-add-aqr-phys.patch}
 
-curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/kernel/linux/modules/video.mk -o package/kernel/linux/modules/video.mk
-
 sed -i "/KernelPackage,ptp/d" package/kernel/linux/modules/other.mk
 
 mv -f tmp/r8125 feeds/kiddin9/
@@ -30,6 +28,8 @@ sed -i -e 's,kmod-r8168,kmod-r8169,g' target/linux/rockchip/image/armv8.mk
 sed -i -e 's,wpad-openssl,wpad-basic-mbedtls,g' target/linux/rockchip/image/armv8.mk
 
 sed -i 's/DEFAULT_PACKAGES +=/DEFAULT_PACKAGES += fdisk lsblk kmod-drm-rockchip/' target/linux/rockchip/Makefile
+
+curl -sfL https://raw.githubusercontent.com/openwrt/openwrt/main/include/u-boot.mk -o include/u-boot.mk
 
 cp -Rf $SHELL_FOLDER/diy/* ./
 
