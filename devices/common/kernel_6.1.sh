@@ -1,12 +1,12 @@
 #!/bin/bash
 
-rm -rf target/linux package/kernel package/boot package/firmware include/kernel-* package/network/config/wifi-scripts config/Config-images.in
+rm -rf target/linux package/kernel package/boot package/firmware include/kernel-* package/network/config/wifi-scripts config/Config-images.in include/image-commands.mk
 
 mkdir new; cp -rf .git new/.git
 cd new
 git reset --hard origin/master
 
-cp -rf --parents target/linux package/kernel package/boot package/firmware include/kernel-* package/network/config/wifi-scripts config/Config-images.in ../
+cp -rf --parents target/linux package/kernel package/boot package/firmware include/kernel-* package/network/config/wifi-scripts config/Config-images.in include/image-commands.mk ../
 cd -
 
 git_clone_path master https://github.com/coolsnowwolf/lede target/linux/generic/hack-6.1
@@ -16,6 +16,8 @@ curl -sfL https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linu
 curl -sfL https://raw.githubusercontent.com/coolsnowwolf/lede/master/package/kernel/linux/modules/video.mk -o package/kernel/linux/modules/video.mk
 
 rm -rf target/linux/generic/hack-6.1/{410-block-fit-partition-parser.patch,724-net-phy-aquantia*,720-net-phy-add-aqr-phys.patch}
+
+curl -sfL https://raw.githubusercontent.com/openwrt/openwrt/main/include/u-boot.mk -o include/u-boot.mk
 
 mkdir package/kernel/mt76/patches
 curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/kernel/mt76/patches/0001-mt76-allow-VHT-rate-on-2.4GHz.patch -o package/kernel/mt76/patches/0001-mt76-allow-VHT-rate-on-2.4GHz.patch
